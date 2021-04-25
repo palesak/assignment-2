@@ -281,7 +281,9 @@ static class AVLTree
                         System.out.println("Access Denied! \n");
                         break;*/
                 }
-                System.out.print("\nPost order : ");
+                System.out.print("\nTest");
+                ch = scan.next().charAt(0);
+                /*System.out.print("\nPost order : ");
                 avl.postorder();
                 System.out.print("\nPre order : ");
                 avl.preorder();
@@ -289,7 +291,7 @@ static class AVLTree
                 avl.inorder();
 
                 System.out.println("\nDo you want to continue (Type y or n) \n");
-                ch = scan.next().charAt(0);
+                ch = scan.next().charAt(0);*/
 
             } while (ch == 'Y' || ch == 'y');
         }
