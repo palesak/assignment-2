@@ -291,9 +291,9 @@ class AccessAVLApp {
         BufferedReader buff = new BufferedReader(read);
         while ((line = buff.readLine()) != null) {
             bt.insert(line);
-            System.out.println(line);
+            //System.out.println(line);
         }
-
+        bt.treeOrder ();
     }
 
     public static void printStudent(String studentID) throws Exception {
@@ -307,42 +307,41 @@ class AccessAVLApp {
         String others = "";
 
 
-
-        //String[] wordChecker = new String[];
-        //String[] line = new String[];
-        //wordChecker = line.split(" ", 0);
-
+        boolean check = false;
         while ((line = buff.readLine()) != null) {
             String letters = "";
             String[] wordChecker;
             wordChecker = line.split(" ", 0);
             letters = wordChecker[0];
             bt.insert(letters);
+            //check = false;
             if (bt.find(studentID) != null) {
 
                 others = wordChecker[1] + " " + wordChecker[2];
+                check = true;
                 //System.out.println(others);
                 break;
             }
-            //System.out.println(line);
-
-         /*if (bt.find(word[0]) != null)
-         {
-            //System.out.println("yes");
-            //System.out.println(word[1] +" "+word[2]);
-         }*/
         }
-        System.out.println(others);
+        if (check) {
+
+            System.out.println("Student name: "+others);
+        } else {
+            System.out.println("Access denied!");
+        }
     }
 
     public static void main(String[] args) throws Exception {
 
 
-
         if (args.length == 0) {
+
+            System.out.println("The results for printing all Students from the AVL tree inOrder traversal");
+            System.out.println("\n");
             printAllStudents();
             }
          else {
+            System.out.println("The results for searching for student ID "+args[0]+" in the AVL tree");
             printStudent(args[0]);
         }
 

@@ -1,0 +1,2 @@
+The results for searching for student ID DLMASE008 in the AVL tree
+Student name: Asemahle Dlamini

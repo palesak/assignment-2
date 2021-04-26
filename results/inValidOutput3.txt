@@ -1,0 +1,2 @@
+The results for searching for student ID KHLPAL002 in the AVL tree
+Access denied!

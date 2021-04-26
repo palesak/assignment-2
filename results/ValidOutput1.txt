@@ -1,0 +1,2 @@
+The results for searching for student ID NHLLUT014 in the AVL tree
+Student name: Luthando Nhlapo
