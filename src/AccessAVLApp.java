@@ -2,7 +2,6 @@
 // 2 April2017
 // Hussein Suleman
 import java.io.*;
-import java.util.*;
 
 
 class AccessAVLApp {
@@ -283,117 +282,73 @@ class AccessAVLApp {
         }
     }
 
+    public static void printAllStudents ()throws Exception{
+        AVLTree<String> bt = new AVLTree<String>();
 
-    public static void main(String[] args) throws Exception {
+        // reading the file and keeping an buffer to tell me what my position is
+        String line;
+        FileReader read = new FileReader("../data/oklist.txt");
+        BufferedReader buff = new BufferedReader(read);
+        while ((line = buff.readLine()) != null) {
+            bt.insert(line);
+            System.out.println(line);
+        }
+
+    }
+
+    public static void printStudent(String studentID) throws Exception {
         AVLTree<String> bt = new AVLTree<String>();
 
         // reading the file and keeping an buffer to tell me what my position is
         FileReader read = new FileReader("../data/oklist.txt");
         BufferedReader buff = new BufferedReader(read);
 
-        // To store each line as one string
+        String line;
+        String others = "";
 
 
-/*
-      // test for single node
-      bt.root = new BinaryTreeNode<Integer> (10, null, null);
-*/
 
-/*
-      // test for 2-level tree
-      bt.root = new BinaryTreeNode<Integer> (
-          1,
-          new BinaryTreeNode<Integer> (2, null, null),
-          new BinaryTreeNode<Integer> (3, null, null)
-      );
-*/
+        //String[] wordChecker = new String[];
+        //String[] line = new String[];
+        //wordChecker = line.split(" ", 0);
 
+        while ((line = buff.readLine()) != null) {
+            String letters = "";
+            String[] wordChecker;
+            wordChecker = line.split(" ", 0);
+            letters = wordChecker[0];
+            bt.insert(letters);
+            if (bt.find(studentID) != null) {
 
-        // test for 3-level tree
-        if (args.length == 0) {
-            String line;
-            while ((line = buff.readLine()) != null) {
-                bt.insert(line);
-                System.out.println(line);
+                others = wordChecker[1] + " " + wordChecker[2];
+                //System.out.println(others);
+                break;
             }
-        } else {
-            String line;
-            String[] word;// = new String[];
-            word = args;
+            //System.out.println(line);
 
-
-            //String[] wordChecker = new String[];
-            //String[] line = new String[];
-            //wordChecker = line.split(" ", 0);
-
-            while ((line = buff.readLine()) != null) {
-                String letters = "";
-                String[] wordChecker;
-                wordChecker = line.split(" ", 0);
-                letters = wordChecker[0];
-                bt.insert(letters);
-                String others = "";
-                if (bt.find(word[0]) != null) {
-
-                    others = wordChecker[1] + " " + wordChecker[2];
-                    System.out.println(others);
-                    break;
-                }
          /*if (bt.find(word[0]) != null)
          {
             //System.out.println("yes");
             //System.out.println(word[1] +" "+word[2]);
          }*/
+        }
+        System.out.println(others);
+    }
+
+    public static void main(String[] args) throws Exception {
+
+
+
+        if (args.length == 0) {
+            printAllStudents();
             }
-            //System.out.println(others);
-      /*bt.insert ("xeno");
-      bt.insert ("cat");
-      bt.insert ("fat");
-      bt.insert ("pat");
-      bt.insert ("mat");
-      bt.insert ("quar");
-      bt.insert ("rat");
-      bt.insert ("uno");*/
+         else {
+            printStudent(args[0]);
+        }
 
-/*
-                   5
-            1             7
-                2      6     9
-                  4        8
-                 3
-*/
-            //System.out.println ("Inorder : ");
-            //bt.treeOrder ();
-
-      /*System.out.println ("Search 2 : ");
-      System.out.println (bt.find (2));
-      System.out.println ("Search 7 : ");
-      System.out.println (bt.find (7));
-      System.out.println ("Search 5 : ");
-      System.out.println (bt.find (5));
-      System.out.println ("Search 3 : ");
-      System.out.println (bt.find (3));
-      System.out.println ("Search 10 : ");
-      System.out.println (bt.find (10));
-
-      System.out.println ("Delete 2 : ");
-      bt.delete (9);
-      bt.treeOrder ();
-      System.out.println ("Delete 7 : ");
-      bt.delete (6);
-      bt.treeOrder ();
-      System.out.println ("Delete 5 : ");
-      bt.delete (7);
-      bt.treeOrder ();
-      System.out.println ("Delete 3 : ");
-      bt.delete (8);
-      bt.treeOrder ();
-      System.out.println ("Delete 10 : ");
-      bt.delete (5);*/
-            //bt.treeOrder ();
         }
     }
-}
+
 
 
 
