@@ -6,7 +6,7 @@
 
 import java.io.*;
 
-class AccessAVLApp {
+public class AccessAVLApp {
 
     /**
      * BinaryTreeNode is used to get the right ond the left node to be compared to the next key being entered, because its an AVL tree Height is also accounted for
