@@ -1,15 +1,28 @@
-// Hussein's AVL Tree
-// 2 April2017
-// Hussein Suleman
+/**
+ * AVL Tree for String insertion and sorting
+ * @ author Palesa Khoali, KHLPAL002
+ * source: Hussein Suleman's AVL Tree
+ */
+
 import java.io.*;
 
 class AccessAVLApp {
+
+    /**
+     * BinaryTreeNode is used to get the right ond the left node to be compared to the next key being entered, because its an AVL tree Height is also accounted for
+     * */
     public static class BinaryTreeNode<String> {
         String data;
         BinaryTreeNode<String> left;
         BinaryTreeNode<String> right;
         int height;
 
+        /**
+         *
+         * @param d used to store data
+         * @param l used to store left node
+         * @param r used to store right node
+         */
         public BinaryTreeNode(String d, BinaryTreeNode<String> l, BinaryTreeNode<String> r) {
             data = d;
             left = l;
@@ -26,6 +39,9 @@ class AccessAVLApp {
         }
     }
 
+    /**
+     * BinaryTree prints out the data in a specific node once its been sorted
+     * */
     public static class BinaryTree<String> {
         BinaryTreeNode<String> root;
 
@@ -33,58 +49,8 @@ class AccessAVLApp {
             root = null;
         }
 
-        public int getHeight() {
-            return getHeight(root);
-        }
-
-        public int getHeight(BinaryTreeNode<String> node) {
-            if (node == null)
-                return -1;
-            else
-                return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight()));
-        }
-
-        public int getSize() {
-            return getSize(root);
-        }
-
-        public int getSize(BinaryTreeNode<String> node) {
-            if (node == null)
-                return 0;
-            else
-                return 1 + getSize(node.getLeft()) + getSize(node.getRight());
-        }
-
         public void visit(BinaryTreeNode<String> node) {
             System.out.println(node.data);
-        }
-
-        public void preOrder() {
-            preOrder(root);
-        }
-
-        public void preOrder(BinaryTreeNode<String> node) {
-            if (node != null) {
-                visit(node);
-                preOrder(node.getLeft());
-                preOrder(node.getRight());
-            }
-        }
-
-        public void postOrder() {
-            postOrder(root);
-        }
-
-        public void postOrder(BinaryTreeNode<String> node) {
-            if (node != null) {
-                postOrder(node.getLeft());
-                postOrder(node.getRight());
-                visit(node);
-            }
-        }
-
-        public void inOrder() {
-            inOrder(root);
         }
 
         public void inOrder(BinaryTreeNode<String> node) {
@@ -95,62 +61,12 @@ class AccessAVLApp {
             }
         }
 
-        public void levelOrder() {
-            if (root == null)
-                return;
-            BTQueue<String> q = new BTQueue<String>();
-            q.enQueue(root);
-            BinaryTreeNode<String> node;
-            while ((node = q.getNext()) != null) {
-                visit(node);
-                if (node.getLeft() != null)
-                    q.enQueue(node.getLeft());
-                if (node.getRight() != null)
-                    q.enQueue(node.getRight());
-            }
-        }
     }
 
-    public static class BTQueueNode<String> {
-        BinaryTreeNode<String> node;
-        BTQueueNode<String> next;
-
-        public BTQueueNode(BinaryTreeNode<String> n, BTQueueNode<String> nxt) {
-            node = n;
-            next = nxt;
-        }
-    }
-
-    public static class BTQueue<String> {
-        BTQueueNode<String> head;
-        BTQueueNode<String> tail;
-
-        public BTQueue() {
-            head = null;
-            tail = null;
-        }
-
-        public BinaryTreeNode<String> getNext() {
-            if (head == null)
-                return null;
-            BTQueueNode<String> qnode = head;
-            head = head.next;
-            if (head == null)
-                tail = null;
-            return qnode.node;
-        }
-
-        public void enQueue(BinaryTreeNode<String> node) {
-            if (tail == null) {
-                tail = new BTQueueNode<String>(node, null);
-                head = tail;
-            } else {
-                tail.next = new BTQueueNode<String>(node, null);
-                tail = tail.next;
-            }
-        }
-    }
-
+    /**
+     * AVL Tree keeps track of the height of the tree, balances the tree through rotations and is reposible for the program keeping its AVL tree properties while insert and searching or any other request
+     * There is also the opCount used to count every instance of an operation during a find or search and print that out
+     */
     public static class AVLTree<String extends Comparable<? super String>> extends BinaryTree<String> {
 
         int opCount = 0;
@@ -329,12 +245,16 @@ class AccessAVLApp {
         }
     }
 
+    /**
+     * printAllStudents reads in the List of students provided, inserts it in an AVL tree and calls an inOrder traver
+     * @throws Exception throws an exception if Filereader is not working
+     */
     public static void printAllStudents ()throws Exception{
         AVLTree<String> bt = new AVLTree<String>();
 
         // reading the file and keeping an buffer to tell me what my position is
         String line;
-        FileReader read = new FileReader("../data/100names.txt");
+        FileReader read = new FileReader("../data/oklist.txt");
         BufferedReader buff = new BufferedReader(read);
         while ((line = buff.readLine()) != null) {
             bt.insert(line);
@@ -343,11 +263,16 @@ class AccessAVLApp {
         bt.treeOrder ();
     }
 
+    /**
+     * printStudent takes in the name of a student one wishes to search for, calls the find function and prints out the name and surname of the corresponding student or Access Denied if no student is found
+     * @param studentID passes in the student ID to be seacrhed
+     * @throws Exception throws an exception if Filereader is not working
+     */
     public static void printStudent(String studentID) throws Exception {
         AVLTree<String> bt = new AVLTree<String>();
 
         // reading the file and keeping an buffer to tell me what my position is
-        FileReader read = new FileReader("../data/1000names.txt");
+        FileReader read = new FileReader("../data/oklist.txt");
         BufferedReader buff = new BufferedReader(read);
 
         String line;
@@ -378,6 +303,12 @@ class AccessAVLApp {
         }
     }
 
+
+    /**
+     * Main calls the printAllStudents() if ran without arguments or printStudent using the argument at position 0
+     * @param args arguments which can be entered on the command line
+     * @throws Exception throws an exception if Filereader is not working
+     */
     public static void main(String[] args) throws Exception {
 
 
