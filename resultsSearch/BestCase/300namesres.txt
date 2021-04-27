@@ -1,0 +1,4 @@
+The results for searching for student ID MLLNOA014 in the AVL tree
+1
+2
+Student name: Noah Maluleke

@@ -161,12 +161,14 @@ class AccessAVLApp {
         }
 
         public int balanceFactor(BinaryTreeNode<String> node) {
-            opCount++;
-            System.out.println(opCount);
+            //opCount++;
+            //System.out.println(opCount);
             return height(node.right) - height(node.left);
         }
 
         public void fixHeight(BinaryTreeNode<String> node) {
+            //opCount++;
+            //System.out.println(opCount);
             node.height = Math.max(height(node.left), height(node.right)) + 1;
         }
 
@@ -191,20 +193,20 @@ class AccessAVLApp {
         public BinaryTreeNode<String> balance(BinaryTreeNode<String> p) {
             fixHeight(p);
             if (balanceFactor(p) == 2) {
-                opCount++;
+                //opCount++;
                 if (balanceFactor(p.right) < 0) {
-                    opCount++;
+                    //opCount++;
                     p.right = rotateRight(p.right);
                 }
-                System.out.println(opCount);
+                //System.out.println(opCount);
                 return rotateLeft(p);
             }
             if (balanceFactor(p) == -2) {
                 if (balanceFactor(p.left) > 0) {
-                    opCount++;
+                    //opCount++;
                     p.left = rotateLeft(p.left);
                 }
-                System.out.println(opCount);
+                //System.out.println(opCount);
                 return rotateRight(p);
             }
             return p;
@@ -218,14 +220,14 @@ class AccessAVLApp {
             if (node == null)
                 return new BinaryTreeNode<String>(d, null, null);
             if (d.compareTo(node.data) <= 0) {
-                opCount++;
+                //opCount++;
                 node.left = insert(d, node.left);
-                System.out.println(opCount);
+                //System.out.println(opCount);
             }
             else {
-                opCount++;
+                //opCount++;
                 node.right = insert(d, node.right);
-                System.out.println(opCount);
+                //System.out.println(opCount);
             }
             return balance(node);
         }
@@ -235,11 +237,21 @@ class AccessAVLApp {
         }
 
         public BinaryTreeNode<String> delete(String d, BinaryTreeNode<String> node) {
-            if (node == null) return null;
-            if (d.compareTo(node.data) < 0)
+            if (node == null) {
+                //opCount++;
+                //System.out.println(opCount);
+                return null;
+            }
+            if (d.compareTo(node.data) < 0) {
+                //opCount++;
+                //System.out.println(opCount);
                 node.left = delete(d, node.left);
-            else if (d.compareTo(node.data) > 0)
+            }
+            else if (d.compareTo(node.data) > 0) {
+                //opCount++;
+                //System.out.println(opCount);
                 node.right = delete(d, node.right);
+            }
             else {
                 BinaryTreeNode<String> q = node.left;
                 BinaryTreeNode<String> r = node.right;
@@ -248,26 +260,36 @@ class AccessAVLApp {
                 BinaryTreeNode<String> min = findMin(r);
                 min.right = removeMin(r);
                 min.left = q;
+                //opCount++;
+                //System.out.println(opCount);
                 return balance(min);
             }
             return balance(node);
         }
 
         public BinaryTreeNode<String> findMin(BinaryTreeNode<String> node) {
-            if (node.left != null)
+            if (node.left != null) {
+                //opCount++;
+                //System.out.println(opCount);
                 return findMin(node.left);
+            }
             else
                 return node;
         }
 
         public BinaryTreeNode<String> removeMin(BinaryTreeNode<String> node) {
-            if (node.left == null)
+            if (node.left == null) {
+                //opCount++;
+                //System.out.println(opCount);
                 return node.right;
+            }
             node.left = removeMin(node.left);
             return balance(node);
         }
 
         public BinaryTreeNode<String> find(String d) {
+            opCount++;
+            System.out.println(opCount);
             if (root == null)
                 return null;
             else
@@ -312,7 +334,7 @@ class AccessAVLApp {
 
         // reading the file and keeping an buffer to tell me what my position is
         String line;
-        FileReader read = new FileReader("../data/1000names.txt");
+        FileReader read = new FileReader("../data/100names.txt");
         BufferedReader buff = new BufferedReader(read);
         while ((line = buff.readLine()) != null) {
             bt.insert(line);
@@ -325,7 +347,7 @@ class AccessAVLApp {
         AVLTree<String> bt = new AVLTree<String>();
 
         // reading the file and keeping an buffer to tell me what my position is
-        FileReader read = new FileReader("../data/oklist.txt");
+        FileReader read = new FileReader("../data/1000names.txt");
         BufferedReader buff = new BufferedReader(read);
 
         String line;
