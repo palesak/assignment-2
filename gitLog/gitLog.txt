@@ -1,0 +1,21 @@
+0: commit 6e4f7d228cdb167599752b2b5563166581a4573b
+1: Author: Palesa Khoali <palesakhoali@Setups-MBP.home>
+2: Date:   Tue Apr 27 19:33:21 2021 +0200
+3:
+4: Completed javadoc
+5:
+6: commit cc1925527f48475397a8f5f1b91b9450605e78d0
+7: Author: Palesa Khoali <palesakhoali@Setups-MBP.home>
+8: Date:   Tue Apr 27 19:28:11 2021 +0200
+9:
+...
+61: Author: Palesa Khoali <palesakhoali@Setups-MBP.home>
+62: Date:   Sat Apr 24 15:39:00 2021 +0200
+63:
+64: added data and the AccessAVLAPP
+65:
+66: commit 0f185a8726a360f862e6d5be7c64b155f41cbd66
+67: Author: Palesa Khoali <palesakhoali@Setups-MBP.home>
+68: Date:   Fri Apr 23 21:44:18 2021 +0200
+69:
+70: First commit
