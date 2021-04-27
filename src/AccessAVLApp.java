@@ -1,6 +1,6 @@
 /**
  * AVL Tree for String insertion and sorting
- * @ author Palesa Khoali, KHLPAL002
+ * @author Palesa Khoali, KHLPAL002
  * source: Hussein Suleman's AVL Tree
  */
 
@@ -30,10 +30,16 @@ class AccessAVLApp {
             height = 0;
         }
 
+        /**
+         * @return returns the left node
+         */
         BinaryTreeNode<String> getLeft() {
             return left;
         }
 
+        /**
+         * @return returns the right node
+         */
         BinaryTreeNode<String> getRight() {
             return right;
         }
@@ -41,18 +47,29 @@ class AccessAVLApp {
 
     /**
      * BinaryTree prints out the data in a specific node once its been sorted
-     * */
+     */
     public static class BinaryTree<String> {
         BinaryTreeNode<String> root;
 
+        /**
+         * Initailizing the Binary Tree
+         */
         public BinaryTree() {
             root = null;
         }
 
+        /**
+         * visit prints out all exact data in the node
+         * @param node stores the actual word in the node
+         */
         public void visit(BinaryTreeNode<String> node) {
             System.out.println(node.data);
         }
 
+        /**
+         * inOrder performs an in order traversal
+         * @param node
+         */
         public void inOrder(BinaryTreeNode<String> node) {
             if (node != null) {
                 inOrder(node.getLeft());
@@ -70,24 +87,44 @@ class AccessAVLApp {
     public static class AVLTree<String extends Comparable<? super String>> extends BinaryTree<String> {
 
         int opCount = 0;
+
+        /**
+         * height keeps track of the height of the tree
+         * @param node stores a word from the list
+         * @return returns the height the node is on
+         */
         public int height(BinaryTreeNode<String> node) {
             if (node != null)
                 return node.height;
             return -1;
         }
 
+        /**
+         * balanceFactor balances the tree by comparing left to right
+         * @param node stores a word from the list
+         * @return returns the difference in height between the left node and the right node
+         */
         public int balanceFactor(BinaryTreeNode<String> node) {
             //opCount++;
             //System.out.println(opCount);
             return height(node.right) - height(node.left);
         }
 
+        /**
+         * fixHeight adjusts the height of the current node
+         * @param node stores the actual word from the list
+         */
         public void fixHeight(BinaryTreeNode<String> node) {
             //opCount++;
             //System.out.println(opCount);
             node.height = Math.max(height(node.left), height(node.right)) + 1;
         }
 
+        /**
+         * rotateRight rotates the tree right to allow an adjusted height
+         * @param p the current node to be rotated
+         * @return the newly rotated node
+         */
         public BinaryTreeNode<String> rotateRight(BinaryTreeNode<String> p) {
             BinaryTreeNode<String> q = p.left;
             p.left = q.right;
@@ -97,6 +134,11 @@ class AccessAVLApp {
             return q;
         }
 
+        /**
+         * rotateRight rotates the tree right to allow an adjusted height
+         * @param q the current node to be rotated
+         * @return the newly rotated node
+         */
         public BinaryTreeNode<String> rotateLeft(BinaryTreeNode<String> q) {
             BinaryTreeNode<String> p = q.right;
             q.right = p.left;
@@ -106,6 +148,11 @@ class AccessAVLApp {
             return p;
         }
 
+        /**
+         * BinaryTreeNode ensures there is always a balance through rotations
+         * @param p the word in the current node
+         * @return the new current node after the balance
+         */
         public BinaryTreeNode<String> balance(BinaryTreeNode<String> p) {
             fixHeight(p);
             if (balanceFactor(p) == 2) {
@@ -128,10 +175,20 @@ class AccessAVLApp {
             return p;
         }
 
+        /**
+         * inserts the roots in the tree
+         * @param d root
+         */
         public void insert(String d) {
             root = insert(d, root);
         }
 
+        /**
+         * Insets the data in the tree
+         * @param d the data to be inserted
+         * @param node the node wherein the data will be inserted
+         * @return the node after balancing
+         */
         public BinaryTreeNode<String> insert(String d, BinaryTreeNode<String> node) {
             if (node == null)
                 return new BinaryTreeNode<String>(d, null, null);
@@ -148,61 +205,11 @@ class AccessAVLApp {
             return balance(node);
         }
 
-        public void delete(String d) {
-            root = delete(d, root);
-        }
-
-        public BinaryTreeNode<String> delete(String d, BinaryTreeNode<String> node) {
-            if (node == null) {
-                //opCount++;
-                //System.out.println(opCount);
-                return null;
-            }
-            if (d.compareTo(node.data) < 0) {
-                //opCount++;
-                //System.out.println(opCount);
-                node.left = delete(d, node.left);
-            }
-            else if (d.compareTo(node.data) > 0) {
-                //opCount++;
-                //System.out.println(opCount);
-                node.right = delete(d, node.right);
-            }
-            else {
-                BinaryTreeNode<String> q = node.left;
-                BinaryTreeNode<String> r = node.right;
-                if (r == null)
-                    return q;
-                BinaryTreeNode<String> min = findMin(r);
-                min.right = removeMin(r);
-                min.left = q;
-                //opCount++;
-                //System.out.println(opCount);
-                return balance(min);
-            }
-            return balance(node);
-        }
-
-        public BinaryTreeNode<String> findMin(BinaryTreeNode<String> node) {
-            if (node.left != null) {
-                //opCount++;
-                //System.out.println(opCount);
-                return findMin(node.left);
-            }
-            else
-                return node;
-        }
-
-        public BinaryTreeNode<String> removeMin(BinaryTreeNode<String> node) {
-            if (node.left == null) {
-                //opCount++;
-                //System.out.println(opCount);
-                return node.right;
-            }
-            node.left = removeMin(node.left);
-            return balance(node);
-        }
-
+        /**
+         * Searches for the string that has been parsed
+         * @param d the string that we are searching for
+         * @return returns the position of the data in the tree if it is found
+         */
         public BinaryTreeNode<String> find(String d) {
             opCount++;
             System.out.println(opCount);
@@ -212,6 +219,12 @@ class AccessAVLApp {
                 return find(d, root);
         }
 
+        /**
+         * find searches for the string which has been requested
+         * @param d the string we are searching for
+         * @param node node containg the data from the list
+         * @return the node
+         */
         public BinaryTreeNode<String> find(String d, BinaryTreeNode<String> node) {
             if (d.compareTo(node.data) == 0) {
                 opCount++;
@@ -230,10 +243,17 @@ class AccessAVLApp {
             }
         }
 
+        /**
+         * initializing the treeOrder();
+         */
         public void treeOrder() {
             treeOrder(root, 0);
         }
 
+        /**
+         * @param node where the data is stored
+         * @param level the nevel of the current node
+         */
         public void treeOrder(BinaryTreeNode<String> node, int level) {
             if (node != null) {
                 for (int i = 0; i < level; i++)
@@ -310,7 +330,6 @@ class AccessAVLApp {
      * @throws Exception throws an exception if Filereader is not working
      */
     public static void main(String[] args) throws Exception {
-
 
         if (args.length == 0) {
 
